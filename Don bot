@@ -1,0 +1,26 @@
+name: Don
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight
+  # Add other triggers as needed
+
+jobs:
+  run_bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests  # Or any other dependencies your script requires
+
+      - name: Run bot script
+        run: python whatsapp_bot.py
+        env:
+          API_KEY: ${{ secrets.WHATSAPP_API_KEY }}  # Use your WhatsApp API key stored as a secret
